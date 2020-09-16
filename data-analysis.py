@@ -135,5 +135,34 @@ for features in continous_features:
         plt.show()
         
 ###Outliers
+
+for feature in continous_features:
+    data = df.copy()
+    if 0 in data[feature].unique():
+        pass
+    else:
+        data[feature] = np.log(data[feature])
+        data.boxplot(column = feature)
+        plt.ylabel(feature)
+        plt.xlabel(feature)
+        plt.title(feature)
+        plt.show()
+        
+###Categorical Features
+        
+categorical_features = [features for features in df.columns if df[features].dtypes == 'O']
+categorical_features
+
+
+for features in categorical_features:
+    print('The Categorical Feature is {} and number of categories are {}'. format(features, len(df[features].unique())))
+
+for features in categorical_features:
+    data = df.copy()
+    df.groupby(features)['SalePrice'].median().plot.bar()
+    plt.xlabel(features)
+    plt.ylabel('SalePrice')
+    plt.title(features)
+    plt.show()
     
 
